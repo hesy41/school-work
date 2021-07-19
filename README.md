@@ -1,6 +1,6 @@
 # descriptions
 
-this repo is used to store all my school work including homeworks and labs 
+This repo is used to store all my school work including homeworks and labs 
 
 CISC1600 - fordham university  
 Instructor: Nikitas P. Kounavelis <br  />
