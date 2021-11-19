@@ -1,0 +1,54 @@
+.data # declear variable in RAM
+	x:.word 12 # int x=3
+	y:.word 1 # int y=3
+	messagex: .asciiz "X="
+	messagey: .asciiz " Y="
+	messagez: .asciiz " Z="
+	
+.text
+	lw $s1, x #load x from RAM
+	lw $s2, y #load y from RAM
+	
+	bne $s1, $s2, else1                  # if (x == y) -> if not, jump to else1
+	add $s3, $s1, $s2                    # z($s3) = x + y
+	j printArea			     # jump to printArea
+	
+	else1: 
+		addi $s4, $s1, -3            # $s4 = x-3
+		bne $s4, $s2, else2          # if (x-3 == y) -> if not, jump to else2
+		addi $s3, $zero, 0	     # z($s3) = 0
+		j printArea		     # jump to printArea
+	else2:
+		sub $s3, $s1, $s2            # z($s3) = x - y
+		j printArea                  # jump to printArea
+		
+	printArea:
+		# cout << "X="
+		li $v0, 4                    #print string
+		la $a0, messagex
+		syscall
+		
+		# cout << x
+		li $v0, 1                    #print int
+		addi $a0, $s1, 0
+		syscall
+		
+		# cout << "Y="
+		li $v0, 4                    #print string
+		la $a0, messagey
+		syscall
+		
+		# cout << y
+		li $v0, 1                    #print int
+		addi $a0, $s2, 0
+		syscall
+		
+		# cout << "Z="
+		li $v0, 4                    #print string
+		la $a0, messagez
+		syscall
+		
+		# cout << z
+		li $v0, 1                    #print int
+		addi $a0, $s3, 0
+		syscall

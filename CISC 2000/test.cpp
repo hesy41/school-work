@@ -3,19 +3,13 @@
 #include <stdlib.h>
 using namespace std;
 
-int gcd (int a, int b)
-{
-  if (a == 0)
-    return b;
-  return gcd(b % a, a);
-}
-
 int main()
 {
-    int a=6;
-    int b=3;
+    bool a= true;
 
-    cout << gcd(a,b) << endl;
+    a = !a 
+
+
 
     return 0;
 }

@@ -1,0 +1,10 @@
+.data
+	#variable declear
+	num1: vord 7
+	num2: vord 10
+	
+.text 
+	lv $t0, num1
+	lv $t1, num2
+	#add them together
+	add $t2, $t0, $t1

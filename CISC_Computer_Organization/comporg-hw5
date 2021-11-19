@@ -1,0 +1,38 @@
+.data 
+	intArray: .word 1,-3,5,-7,9,-11,13,-15,17,-19 	       #int A[10] = { 1, -3, 5, -7, 9, -11, 13, -15, 17, -19 };
+	sum: .word 0 					       #int sum = 0;
+	i: .word 0					       #int i = 0;
+	message: .asciiz "Final sum = "			       # string message= "final sum ="
+	
+.text 
+	lw $s0, sum            				       # $s0 = sum
+	lw $t1, i		 			       # $t1 = i
+	la  $t2, intArray				       # $t2 = intArray
+	addi $t3, $zero, 10				       # $t3 = 10
+	addi $t5, $zero, 4				       # $t5 = 4
+	
+	
+	loop:
+		bge $t1, $t3, exit
+		lw  $t4, ($t2)  			       #$t4 = arr[i]
+		addi $t2, $t2, 4			       #move arr to the next position 
+		add $s0, $s0, $t4			       #sum = sum + arr[i]
+		mul $s0, $s0, $t5			       ##sum = sum *4	 
+		addi $t1, $t1, 1			       # $t0 = sum
+		j loop
+		
+	exit:
+		# cout << "Final sum ="
+		li $v0, 4                    #print string
+		la $a0, message
+		syscall
+		
+		# cout << x
+		li $v0, 1                    #print int
+		addi $a0, $s0, 0
+		syscall
+	
+	
+	
+	
+	
