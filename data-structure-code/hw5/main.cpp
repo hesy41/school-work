@@ -22,7 +22,15 @@ int main(){
     pq.Enqueue(a);
     pq.Enqueue(b); 
     pq.Enqueue(c);
-    pq.Enqueue(d);  
+    pq.Enqueue(d); 
+    try
+    {
+        pq.Enqueue(d);
+    }
+    catch(FullPQ& e)
+    {
+        cout<< "dont enqueue a full  heap\n";
+    }
 
     if (pq.IsFull())
         cout<< "is full" << endl;
