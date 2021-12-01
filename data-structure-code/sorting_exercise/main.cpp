@@ -13,15 +13,17 @@ void StraightSelectionSort(int[],int);
 void BubbleSort(int[], int size);
 void InsertionSort(int[], int size);
 void MergeSort(int arr[], int size);
+void QuickSort(int arr[], int size);
 
 int main(){
-    int array[10]={45, 23, 100, 12, 67, 901, 230, 4, 55, 511};
+    int array[10]={45, 23, 100, 12, 67, 901, 230, 4, 45, 511};
     int size = sizeof(array)/sizeof(array[0]);
 
     //StraightSelectionSort(array,size);
     //BubbleSort(array,size);
     //InsertionSort(array, size);
-    MergeSort(array, size);
+    //MergeSort(array, size);
+    QuickSort(array, size);
     print_array(array, size);
 
     return 0;
@@ -174,6 +176,42 @@ void Merge(int a[], int head, int mid, int tail)
 }
 /*------------------------------------------------------*/
 
+/*quick sort*/
+void QuickSortRecursion(int arr[], int first, int last);
+int partition(int arr[], int first, int last);
+
+void QuickSort(int arr[], int size)
+{
+    QuickSortRecursion(arr, 0, size-1);
+}
+
+void QuickSortRecursion(int arr[], int first, int last)
+{
+    if (first<last)
+    {
+        int PivotIndex = partition(arr, first, last);
+        QuickSortRecursion(arr, first, PivotIndex-1);
+        QuickSortRecursion(arr, PivotIndex+1, last);
+    }
+}
+
+int partition(int arr[], int first, int last)
+{
+    int pivot = arr[last];
+    int pivotIndex = first;
+
+    for(int i=first; i<last; i++)
+    {
+        if(arr[i]<=pivot)
+        {
+            swap(arr[i], arr[pivotIndex]);
+            pivotIndex++;
+        }
+    }
+    swap(arr[pivotIndex], arr[last]);
+    return pivotIndex;
+}
+/*-----------------------------------------------------*/
 void print_array(int arr[], int size)
 {
     for (int i=0; i<size; i++)
