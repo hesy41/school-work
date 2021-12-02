@@ -15,6 +15,7 @@ void InsertionSort(int[], int size);
 void MergeSort(int arr[], int size);
 void QuickSort(int arr[], int size);
 void HeapSort(int arr[], int size);
+void RadixSort(int arr[], int size);
 
 int main(){
     int array[10]={45, 23, 100, 12, 67, 901, 230, 4, 45, 511};
@@ -25,7 +26,8 @@ int main(){
     //InsertionSort(array, size);
     //MergeSort(array, size);
     //QuickSort(array, size);
-    HeapSort(array, size);
+    //HeapSort(array, size);
+    RadixSort(array,size);
     print_array(array, size);
 
     return 0;
@@ -250,6 +252,62 @@ void ReheapDown(int arr[], int size, int index)
 }
 /*-----------------------------------------------------*/
 
+/*radix sort*/
+int getMax(int arr[], int size);
+void countSort(int arr[], int size, int digit);
+
+void RadixSort(int arr[], int size)
+{
+    int max = getMax(arr, size);
+
+    for (int digit=1; max/digit>1; digit *= 10)
+    {
+        countSort(arr, size, digit);
+    }
+
+}
+
+int getMax(int arr[], int size)
+{
+    int max=arr[0];
+    for (int i=1; i<size; i++)
+    {
+        if (arr[i]>max)
+            max=arr[i];
+    }
+    return max;
+}
+
+void countSort(int arr[], int size, int digit)
+{
+    int *fixed;
+    fixed = new int[size];
+    int counter[10]={0}; // 10 radixes
+    
+    for (int i=0; i<size; i++)
+    {
+        counter[ (arr[i]/digit) % 10]++;
+    }
+
+    for (int j=1; j<10; j++)
+    {
+        counter[j] += counter[j-1]; 
+    }
+
+    for (int k=size-1; k>=0; k--)
+    {
+        fixed[counter[(arr[k]/digit) % 10]-1] = arr[k];
+        counter[ (arr[k]/digit) % 10]--;
+    }
+
+    for (int p = 0; p < size; p++)
+    {
+        arr[p] = fixed[p];
+    }
+
+    delete[] fixed;
+}
+/*--------------------------------------------------------*/
 void print_array(int arr[], int size)
 {
     for (int i=0; i<size; i++)
