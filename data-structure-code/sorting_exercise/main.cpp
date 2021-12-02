@@ -14,6 +14,7 @@ void BubbleSort(int[], int size);
 void InsertionSort(int[], int size);
 void MergeSort(int arr[], int size);
 void QuickSort(int arr[], int size);
+void HeapSort(int arr[], int size);
 
 int main(){
     int array[10]={45, 23, 100, 12, 67, 901, 230, 4, 45, 511};
@@ -23,7 +24,8 @@ int main(){
     //BubbleSort(array,size);
     //InsertionSort(array, size);
     //MergeSort(array, size);
-    QuickSort(array, size);
+    //QuickSort(array, size);
+    HeapSort(array, size);
     print_array(array, size);
 
     return 0;
@@ -212,6 +214,42 @@ int partition(int arr[], int first, int last)
     return pivotIndex;
 }
 /*-----------------------------------------------------*/
+
+/*heap sort*/
+void ReheapDown(int arr[], int size, int index);
+
+void HeapSort(int arr[], int size)
+{   //turn the array into a heap
+    for (int i=size/2 -1; i>=0; i--)
+        ReheapDown(arr, size, i);
+    for (int i=size -1; i>0; i--)
+    {   
+        //put the largest index to the bottom of the array
+        swap(arr[0], arr[i]);
+        //get the largest value to be the root (a[0])
+        ReheapDown(arr, i-1, 0);
+    }
+}
+
+void ReheapDown(int arr[], int size, int index)
+{   
+    // first assume the root has largest value
+    int largestIndex = index;
+    int leftIndex = 2*index+1;
+    int rightIndex = 2*index+2;
+
+    if (leftIndex<size && arr[leftIndex]>arr[largestIndex])
+        largestIndex = leftIndex;
+    if (rightIndex<size && arr[rightIndex]>arr[largestIndex])
+        largestIndex = rightIndex;
+    if (largestIndex != index)
+    {
+        swap(arr[largestIndex], arr[index]);
+        ReheapDown(arr, size, largestIndex);
+    }
+}
+/*-----------------------------------------------------*/
+
 void print_array(int arr[], int size)
 {
     for (int i=0; i<size; i++)
