@@ -10,37 +10,41 @@ using namespace std;
 //template<class ItemType> 
 int main(){
     
-    PQType pq(4);
+    PQType pq(6);
 
-    ItemType a, b, c, d;
+    ItemType a, b, c, d,e,f;
 
-    a.Initialize(9);
-    b.Initialize(3);
-    c.Initialize(40);
-    d.Initialize(1);
+    a.Initialize(30);
+    b.Initialize(240);
+    c.Initialize(20);
+    d.Initialize(150);
+    e.Initialize(230);
+    f.Initialize(40);
 
     pq.Enqueue(a);
     pq.Enqueue(b); 
     pq.Enqueue(c);
     pq.Enqueue(d); 
-    try
+    pq.Enqueue(e); 
+    pq.Enqueue(f);
+    /* try
     {
         pq.Enqueue(d);
     }
     catch(FullPQ& e)
     {
         cout<< "dont enqueue a full  heap\n";
-    }
+    } */
 
     if (pq.IsFull())
         cout<< "is full" << endl;
     else
         cout<< "not full" << endl;
 
-    pq.Dequeue(a);
+    /* pq.Dequeue(a);
     pq.Dequeue(b);
     pq.Dequeue(c);
-    pq.Dequeue(d);
+    pq.Dequeue(d); */
 
     if (pq.IsEmpty())
         cout<< "is empty" << endl;
