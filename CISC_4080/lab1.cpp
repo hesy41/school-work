@@ -15,28 +15,28 @@ using namespace std;
   @arr: input array 
   @size: size of the input array
   precon: an arry that need to be sorted and the size of the array
-  postcon: a sorted array*/
+  postcon: arr[0..size-1] is sorted */
 void selection(vector<int>& arr, int size);
 
 /*rselection: recursive selection sort function
-  @arr: input array 
+  @arr: input array  
   @size: size of the input array
   precon: an arry that need to be sorted and the size of the array
-  postcon: a sorted array*/
+  postcon: arr[0..size-1] is sorted */
 void rselection(vector<int>& arr, int size);
 
 /*bubble: iterative bubble sort function
   @arr: input array 
   @size: size of the input array
   precon: an arry that need to be sorted and the size of the array
-  postcon: a sorted array*/
+  postcon: arr[0..size-1] is sorted */
 void bubble(vector<int>& arr, int size);
 
 /*rbubble: recursive bubble sort function
   @arr: input array 
   @size: size of the input array
   precon: an arry that need to be sorted and the size of the array
-  postcon: a sorted array*/
+  postcon: arr[0..size-1] is sorted*/
 void rbubble(vector<int>& arr, int size);
 
 int main(){
@@ -149,7 +149,9 @@ void bubble(vector<int>& arr, int size)
     }
 }
 
-/*rbubble: recursive bubble sort function*/
+/*rbubble: recursive bubble sort function
+  recursively, we decrese "size of the array" to sort the smaller part
+  when size is decreased to 1, the array is sorted*/
 void rbubble(vector<int>& arr, int size)
 {
     //base case
