@@ -18,7 +18,7 @@ Instructor: Mohamed Rahouti
 Time: Fall 2021  
 A survey of the major types of structures in programs used to handle data. Methods for data organization and access will be covered across data structures and studied for their memory footprints and temporal efficiencies. This course builds on principles in discrete mathematics and in fundamental programming practices.
 
-CISC 3593 Computer Organization - Fordham university
+CISC 3593 Computer Organization - Fordham university  
 Instructor: Dakota Hernandez  
 Time: Fall 2021  
 This course introduces students to basic concepts in computer organization. It covers binary, octal and hex arithmetic, digital logic, machine and assembly language programming and processor architecture. Students are expected to have had introductory classes in programming and in discrete math. Course assignments will include a focus on both theoretical and practical issues and will include programming assignments.  
