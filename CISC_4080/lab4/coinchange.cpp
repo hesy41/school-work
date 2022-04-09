@@ -86,11 +86,13 @@ bool CoinChange (vector<int> & L, int first, int last, int value, vector<int> & 
    }
 
 } 
-
+/*returns a vector of vectors of Item, each of which is a subset of elements chosen from the given vector a[ﬁrst…last]
+  @a: the original set
+  @param ﬁrst, last: specify the range of coins to choose from, i.e., coins[ﬁrst…last]*/
 vector<vector<int>> subsets(const vector<int> & a, int first, int last)
 {
 	vector< vector<int> > ans;
-	int n=a.size();
+	int n=last-first+1;
 	//if the length of a[ﬁrst…last] is n
 	//then the function should return a vector of 2^n vectors
 	int ans_size=pow(2,n);
@@ -108,9 +110,33 @@ vector<vector<int>> subsets(const vector<int> & a, int first, int last)
 	return ans;
 }
 
+/* Check if given value given be expressed by K or less coins chosen from the given set of coins
+  @param coins: all coins we can choose from
+  @param ﬁrst, last: specify the range of coins to choose from, i.e., coins[ﬁrst…last]
+  @param value: the value to express 
+  @param K: the maximum # of coins to use
+  @precondition: all coins have positive values
+  @postcondition: return true of false depending on the checking result */
 bool CoinChangeK (const vector<int> & coins, int first, int last, int value, int K)
 {
-   return true;
+	vector< vector <int> > subset=subsets(coins, first, last);
+	int num_of_subset=subset.size();
+
+	for (int i=0; i<num_of_subset; i++)
+	{
+		if(subset[i].size()<=K)
+		{
+			int subset_sum = 0;
+			for (int j=0; j<subset[i].size(); j++)
+			{
+				subset_sum += subset[i][j];
+			}
+			if (subset_sum==value)
+				return true;
+		}
+		
+	}
+    return false;
 }
 
 bool UnlimitedCoinChange (const vector<int> & coins, int value, vector<int>& bestSolution)
@@ -125,10 +151,11 @@ int main()
    vector<int> used;
 
    vector<int> values{4, 6,15, 18, 30, 41}; //use this to test
+   //vector<int> values{4, 6,15}; 
    
    //test subset
    vector< vector<int> > test_subset=subsets(values,0, values.size()-1);
-   cout<< "hah";
+   
    for(int i=0; i<test_subset.size(); i++)
 	{
 		PrintVector(test_subset[i]);
