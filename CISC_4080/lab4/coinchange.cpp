@@ -4,18 +4,19 @@
   bug found:
   */
 
-//Compile using g++ -std=c++11
+//Compile using g++ -std=c++11 Filename.cpp -o ExecutableName.out
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include<algorithm>
 using namespace std;
 
 void PrintVector (const vector<int> & v){
-	cout <<"[";
+	cout << "[";
 	for (auto e:v){
-		cout<<e<<" ";
+		cout << e << " ";
 	}
-	cout <<"]";
+	cout << "]";
 
 }
 
@@ -119,7 +120,7 @@ vector<vector<int>> subsets(const vector<int> & a, int first, int last)
   @postcondition: return true of false depending on the checking result */
 bool CoinChangeK (const vector<int> & coins, int first, int last, int value, int K)
 {
-	vector< vector <int> > subset=subsets(coins, first, last);
+	vector<vector<int>> subset=subsets(coins, first, last);
 	int num_of_subset=subset.size();
 
 	for (int i=0; i<num_of_subset; i++)
@@ -139,10 +140,74 @@ bool CoinChangeK (const vector<int> & coins, int first, int last, int value, int
     return false;
 }
 
-bool UnlimitedCoinChange (const vector<int> & coins, int value, vector<int>& bestSolution)
+/* Check if given value given be expressed by coins chosen from the given set of coins
+@param coins: all coins we can choose from
+@param value: the value to express
+@precondition: all coins have positive values
+@postcondition: return true or false depending on the checking result, if return true, bestSolution is
+set to include the solution that uses minimum number of coins */
+bool UnlimitedCoinChange (const vector<int> & coins, int value, vector<int> & bestSolution)
 {
-   
-   return true;
+	//base case 1: if value is 0
+	if (value==0)
+	{
+		bestSolution.clear();
+		return true;
+	}
+		
+   //base case: if coin is negative value, then return false
+   if (value < 0)
+   {
+		bestSolution.clear();
+		return false;
+   }
+
+   //no more coins to use
+   if (coins.size()<=0)
+   {
+	   bestSolution.clear();
+	   return false;
+   }
+
+	//general case
+	vector<int>temp1;
+	
+	int last=coins.size()-1;
+	//include coins[last], subtract that value from value
+	bool left = UnlimitedCoinChange(coins, value-coins[last], temp1);
+		if (left)
+			temp1.push_back(coins[last]);
+
+	//dont include coins[last]
+	vector<int>coins_pass_on(coins.begin(),coins.end()-1);
+	vector<int>temp2;
+	bool right = UnlimitedCoinChange(coins_pass_on, value, temp2);
+		//if (right == true)
+			//temp2.push_back(coins.end()-1);
+	
+	if (left && right)
+	{
+		if (temp1.size() > temp2.size())
+			bestSolution = temp2;
+		else
+			bestSolution = temp1;
+		return true;
+	}
+	else if (left)
+	{
+		bestSolution = temp1;
+		return true;
+	}
+	else if (right)
+	{
+		bestSolution = temp2;
+		return true;
+	}
+	else 
+	{
+		bestSolution.clear();
+		return false;
+	}
 }
 
 int main()
@@ -154,13 +219,13 @@ int main()
    //vector<int> values{4, 6,15}; 
    
    //test subset
-   vector< vector<int> > test_subset=subsets(values,0, values.size()-1);
+   /* vector< vector<int> > test_subset=subsets(values,0, values.size()-1);
    
    for(int i=0; i<test_subset.size(); i++)
 	{
 		PrintVector(test_subset[i]);
 		cout<<endl;
-	}
+	} */
 
    //This part demo the CoinChange function: optimization problem
 /*
